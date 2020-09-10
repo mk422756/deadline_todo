@@ -10,11 +10,11 @@ class CreateTodo extends StatefulWidget {
 class _CreateTodoState extends State<CreateTodo> {
   DateTime _startDate = new DateTime.now();
   DateTime _endDate = new DateTime.now();
-  String _text = '';
+  String _title = '';
 
-  void _handleText(String e) {
+  void _handleTitle(String e) {
     setState(() {
-      _text = e;
+      _title = e;
     });
   }
 
@@ -74,7 +74,7 @@ class _CreateTodoState extends State<CreateTodo> {
                 obscureText: false,
                 maxLines: 1,
                 //パスワード
-                onChanged: _handleText,
+                onChanged: _handleTitle,
               ),
             ),
             RaisedButton(

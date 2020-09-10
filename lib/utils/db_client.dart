@@ -2,7 +2,7 @@ import 'package:sqflite/sqflite.dart';
 
 class DBClient {
   Future<Database> getDb() async {
-    return await openDatabase('my_db.db', version: 1, onCreate: _onCreate);
+    return await openDatabase('my_db.db22', version: 1, onCreate: _onCreate);
   }
 
   Future<void> _onCreate(Database db, int version) async {
