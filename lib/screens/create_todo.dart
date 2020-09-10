@@ -1,3 +1,5 @@
+import 'package:deadline_todo/models/todo.dart';
+import 'package:deadline_todo/providers/todo_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -81,7 +83,12 @@ class _CreateTodoState extends State<CreateTodo> {
               child: Text("OK!!"),
               color: Colors.blue,
               textColor: Colors.white,
-              onPressed: () async {},
+              onPressed: () async {
+                Todo todo = Todo(_title, _startDate, _endDate);
+                TodoProvider provider = TodoProvider();
+                await provider.insert(todo);
+                Navigator.pop(context);
+              },
             ),
           ],
         ),
