@@ -1,7 +1,7 @@
 import 'package:deadline_todo/models/todo.dart';
 import 'package:deadline_todo/providers/todo_provider.dart';
-import 'package:deadline_todo/screens/create_todo.dart';
-import 'package:deadline_todo/screens/todo_detail.dart';
+import 'package:deadline_todo/ui/screens/create_todo.dart';
+import 'package:deadline_todo/ui/screens/todo_detail.dart';
 import 'package:flutter/material.dart';
 
 class TopPage extends StatefulWidget {

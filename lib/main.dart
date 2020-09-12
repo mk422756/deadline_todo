@@ -1,6 +1,6 @@
-import 'package:deadline_todo/screens/create_todo.dart';
-import 'package:deadline_todo/screens/todo_detail.dart';
-import 'package:deadline_todo/screens/top_page.dart';
+import 'package:deadline_todo/ui/screens/create_todo.dart';
+import 'package:deadline_todo/ui/screens/todo_detail.dart';
+import 'package:deadline_todo/ui/screens/top_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
