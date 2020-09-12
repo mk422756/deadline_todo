@@ -31,11 +31,14 @@ class _TopPageState extends State<TopPage> {
             itemBuilder: (BuildContext context, int index) {
               var todo = todos[index];
               return Card(
-                  child: ListTile(
-                title: Text(todo.title),
-                onTap: () => Navigator.pushNamed(context, TodoDetail.route,
-                    arguments: todo),
-              ));
+                child: ListTile(
+                    title: Text(todo.title),
+                    onTap: () async {
+                      await Navigator.pushNamed(context, TodoDetail.route,
+                          arguments: todo);
+                      setState(() {});
+                    }),
+              );
             },
             itemCount: todos.length,
           );
