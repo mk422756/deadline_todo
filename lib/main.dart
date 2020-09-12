@@ -1,4 +1,5 @@
 import 'package:deadline_todo/screens/create_todo.dart';
+import 'package:deadline_todo/screens/todo_detail.dart';
 import 'package:deadline_todo/screens/top_page.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         TopPage.route: (BuildContext context) => TopPage(),
         CreateTodo.route: (BuildContext context) => CreateTodo(),
+        TodoDetail.route: (BuildContext context) => TodoDetail(),
       },
     );
   }

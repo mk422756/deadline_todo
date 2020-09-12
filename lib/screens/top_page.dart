@@ -1,6 +1,7 @@
 import 'package:deadline_todo/models/todo.dart';
 import 'package:deadline_todo/providers/todo_provider.dart';
 import 'package:deadline_todo/screens/create_todo.dart';
+import 'package:deadline_todo/screens/todo_detail.dart';
 import 'package:flutter/material.dart';
 
 class TopPage extends StatefulWidget {
@@ -28,7 +29,13 @@ class _TopPageState extends State<TopPage> {
           List<Todo> todos = snapshot.data;
           return ListView.builder(
             itemBuilder: (BuildContext context, int index) {
-              return Text(todos[index].title);
+              var todo = todos[index];
+              return Card(
+                  child: ListTile(
+                title: Text(todo.title),
+                onTap: () => Navigator.pushNamed(context, TodoDetail.route,
+                    arguments: todo),
+              ));
             },
             itemCount: todos.length,
           );
