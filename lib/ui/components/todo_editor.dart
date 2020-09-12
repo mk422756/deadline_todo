@@ -4,20 +4,31 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TodoEditor extends StatefulWidget {
-  final String title;
-  final DateTime startDate;
-  final DateTime endDate;
+  final Todo todo;
 
-  TodoEditor(this.title, this.startDate, this.endDate);
+  TodoEditor({this.todo});
 
   @override
   _TodoEditorState createState() => _TodoEditorState();
 }
 
 class _TodoEditorState extends State<TodoEditor> {
-  String _title = '';
+  TextEditingController _textController;
+  String _title = "";
   DateTime _startDate = new DateTime.now();
   DateTime _endDate = new DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.todo != null) {
+      _title = widget.todo.title;
+      _textController = TextEditingController(text: _title);
+      _startDate = widget.todo.start;
+      _endDate = widget.todo.end;
+    }
+  }
 
   void _handleTitle(String e) {
     setState(() {
@@ -71,14 +82,13 @@ class _TodoEditorState extends State<TodoEditor> {
           padding: EdgeInsets.symmetric(horizontal: 30.0),
           child: new TextField(
             enabled: true,
-            // 入力数
             maxLength: 20,
             maxLengthEnforced: false,
             style: TextStyle(color: Colors.blue),
             obscureText: false,
             maxLines: 1,
-            //パスワード
             onChanged: _handleTitle,
+            controller: _textController,
           ),
         ),
         RaisedButton(
@@ -86,10 +96,21 @@ class _TodoEditorState extends State<TodoEditor> {
           color: Colors.blue,
           textColor: Colors.white,
           onPressed: () async {
-            Todo todo = Todo(_title, _startDate, _endDate);
             TodoProvider provider = TodoProvider();
-            await provider.insert(todo);
-            Navigator.pop(context);
+
+            Todo todo;
+            if (widget.todo == null) {
+              todo = Todo(_title, _startDate, _endDate);
+              await provider.insert(todo);
+            } else {
+              todo = widget.todo;
+              todo.title = _title;
+              todo.start = _startDate;
+              todo.end = _endDate;
+              await provider.update(todo);
+            }
+
+            Navigator.pop(context, todo);
           },
         ),
       ],

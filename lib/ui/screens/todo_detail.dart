@@ -1,10 +1,15 @@
 import 'package:deadline_todo/models/todo.dart';
 import 'package:deadline_todo/providers/todo_provider.dart';
+import 'package:deadline_todo/ui/screens/update_todo.dart';
 import 'package:flutter/material.dart';
 
-class TodoDetail extends StatelessWidget {
+class TodoDetail extends StatefulWidget {
   static final route = "/todo_detail";
+  @override
+  _TodoDetailState createState() => _TodoDetailState();
+}
 
+class _TodoDetailState extends State<TodoDetail> {
   Future<int> deleteTodo(Todo todo) {
     TodoProvider provider = TodoProvider();
     return provider.delete(todo.id);
@@ -12,7 +17,7 @@ class TodoDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Todo todo = ModalRoute.of(context).settings.arguments;
+    Todo todo = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -22,6 +27,19 @@ class TodoDetail extends StatelessWidget {
             Text(todo.start.toString() + ' から'),
             Text(todo.end.toString() + ' までに'),
             Text(todo.title),
+            RaisedButton(
+              child: Text("更新"),
+              color: Colors.blue,
+              textColor: Colors.white,
+              onPressed: () async {
+                var retTodo = await Navigator.pushNamed(
+                    context, UpdateTodo.route,
+                    arguments: todo);
+                setState(() {
+                  todo = retTodo;
+                });
+              },
+            ),
             RaisedButton(
               child: Text("削除"),
               color: Colors.red,
