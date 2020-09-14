@@ -3,8 +3,20 @@ import 'package:deadline_todo/ui/screens/todo_detail.dart';
 import 'package:deadline_todo/ui/screens/top_page.dart';
 import 'package:deadline_todo/ui/screens/update_todo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+// initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
+  var initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
+  var onDidReceiveLocalNotification;
+  var initializationSettingsIOS = IOSInitializationSettings(
+      onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+  var initializationSettings = InitializationSettings(
+      initializationSettingsAndroid, initializationSettingsIOS);
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   runApp(MyApp());
 }
 
