@@ -1,9 +1,12 @@
+import 'package:deadline_todo/models/progress.dart';
 import 'package:deadline_todo/models/todo.dart';
+import 'package:deadline_todo/providers/progress_provider.dart';
 import 'package:deadline_todo/providers/todo_provider.dart';
-import 'package:deadline_todo/ui/screens/create_todo.dart';
 import 'package:deadline_todo/ui/screens/todo_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+import 'create_todo.dart';
 
 class TopPage extends StatefulWidget {
   static final route = "/";
@@ -17,6 +20,11 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 class _TopPageState extends State<TopPage> {
   Future<List<Todo>> getTodos() {
     TodoProvider provider = TodoProvider();
+    return provider.getAll();
+  }
+
+  Future<List<Progress>> getProgresses() {
+    ProgressProvider provider = ProgressProvider();
     return provider.getAll();
   }
 
@@ -63,8 +71,9 @@ class _TopPageState extends State<TopPage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () async {
-          await _showNotification();
+//          await _showNotification();
 //          await Navigator.pushNamed(context, CreateTodo.route);
+          print(await getProgresses());
           setState(() {});
         },
       ),

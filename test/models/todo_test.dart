@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:deadline_todo/models/todo.dart';
 
 void main() {
-  test('Counter value should be incremented', () {
+  test('Todoクラスが適切に動作する', () {
     var map = {
       "id": 1,
       "start": "2020-12-15",

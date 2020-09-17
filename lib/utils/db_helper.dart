@@ -7,14 +7,20 @@ class DBHelper {
 
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
-    CREATE TABLE todos (id INTEGER PRIMARY KEY AUTOINCREMENT, start TEXT, end TEXT, title TEXT);
+    CREATE TABLE todos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    start TEXT,
+    end TEXT,
+    title TEXT);
     ''');
 
     await db.execute('''
-    INSERT INTO todos(start, end, title) VALUES (date('2020-12-15'), date('2020-12-30'), "test3");
+    CREATE TABLE progresses (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    todo_id INTEGER,
+    date, TEXT,
+    progress, INTEGER,
+    foreign key(todo_id) references todos(id));
     ''');
-
-    var ret = await db.rawQuery('SELECT * FROM todos');
-    print(ret);
   }
 }
