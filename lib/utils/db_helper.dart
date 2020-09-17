@@ -2,7 +2,7 @@ import 'package:sqflite/sqflite.dart';
 
 class DBHelper {
   Future<Database> getDb() async {
-    return await openDatabase('my_db.db', version: 1, onCreate: _onCreate);
+    return await openDatabase('my_db.db10', version: 1, onCreate: _onCreate);
   }
 
   Future<void> _onCreate(Database db, int version) async {
@@ -21,6 +21,22 @@ class DBHelper {
     date, TEXT,
     progress, INTEGER,
     foreign key(todo_id) references todos(id));
+    foreign key(progress) references progress_levels(id));
     ''');
+
+    await db.execute('''
+    CREATE TABLE progress_levels (
+    id INTEGER PRIMARY KEY, 
+    level TEXT);
+    ''');
+
+    await db.execute(
+        'INSERT INTO progress_levels(id, level) VALUES (1, "very good");');
+    await db
+        .execute('INSERT INTO progress_levels(id, level) VALUES (2, "good");');
+    await db
+        .execute('INSERT INTO progress_levels(id, level) VALUES (3, "so-so");');
+    await db.execute(
+        'INSERT INTO progress_levels(id, level) VALUES (4, "not good");');
   }
 }
