@@ -1,4 +1,5 @@
 import 'package:deadline_todo/ui/screens/create_todo.dart';
+import 'package:deadline_todo/ui/screens/progress_input.dart';
 import 'package:deadline_todo/ui/screens/todo_detail.dart';
 import 'package:deadline_todo/ui/screens/top_page.dart';
 import 'package:deadline_todo/ui/screens/update_todo.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         CreateTodo.route: (BuildContext context) => CreateTodo(),
         UpdateTodo.route: (BuildContext context) => UpdateTodo(),
         TodoDetail.route: (BuildContext context) => TodoDetail(),
+        ProgressInput.route: (BuildContext context) => ProgressInput(),
       },
     );
   }

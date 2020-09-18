@@ -41,6 +41,13 @@ class _TopPageState extends State<TopPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+//    _showNotification();
+    getProgresses().then((value) => print(value));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
@@ -71,9 +78,7 @@ class _TopPageState extends State<TopPage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () async {
-//          await _showNotification();
-//          await Navigator.pushNamed(context, CreateTodo.route);
-          print(await getProgresses());
+          await Navigator.pushNamed(context, CreateTodo.route);
           setState(() {});
         },
       ),

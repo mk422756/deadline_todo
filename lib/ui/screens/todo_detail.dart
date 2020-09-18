@@ -1,5 +1,6 @@
 import 'package:deadline_todo/models/todo.dart';
 import 'package:deadline_todo/providers/todo_provider.dart';
+import 'package:deadline_todo/ui/screens/progress_input.dart';
 import 'package:deadline_todo/ui/screens/update_todo.dart';
 import 'package:flutter/material.dart';
 
@@ -28,13 +29,27 @@ class _TodoDetailState extends State<TodoDetail> {
             Text(todo.end.toString() + ' までに'),
             Text(todo.title),
             RaisedButton(
+              child: Text("進捗追加"),
+              color: Colors.green,
+              textColor: Colors.white,
+              onPressed: () async {
+                await Navigator.pushNamed(
+                  context,
+                  ProgressInput.route,
+                  arguments: todo,
+                );
+              },
+            ),
+            RaisedButton(
               child: Text("更新"),
               color: Colors.blue,
               textColor: Colors.white,
               onPressed: () async {
                 var retTodo = await Navigator.pushNamed(
-                    context, UpdateTodo.route,
-                    arguments: todo);
+                  context,
+                  UpdateTodo.route,
+                  arguments: todo,
+                );
                 setState(() {
                   todo = retTodo;
                 });
