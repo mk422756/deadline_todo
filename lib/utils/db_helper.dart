@@ -8,26 +8,27 @@ class DBHelper {
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
     CREATE TABLE todos (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    start TEXT,
-    end TEXT,
-    title TEXT);
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      start TEXT,
+      end TEXT,
+      title TEXT);
     ''');
 
     await db.execute('''
     CREATE TABLE progresses (
-    id INTEGER PRIMARY KEY AUTOINCREMENT, 
-    todo_id INTEGER,
-    date, TEXT,
-    progress, INTEGER,
-    foreign key(todo_id) references todos(id));
-    foreign key(progress) references progress_levels(id));
+      id INTEGER PRIMARY KEY AUTOINCREMENT, 
+      todo_id INTEGER,
+      date, TEXT,
+      progress, INTEGER,
+    FOREIGN KEY(todo_id) references todos(id)
+    FOREIGN KEY(progress) references progress_levels(id)
+    UNIQUE(todo_id, date));
     ''');
 
     await db.execute('''
     CREATE TABLE progress_levels (
-    id INTEGER PRIMARY KEY, 
-    level TEXT);
+      id INTEGER PRIMARY KEY, 
+      level TEXT);
     ''');
 
     await db.execute(
