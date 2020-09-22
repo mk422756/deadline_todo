@@ -44,7 +44,6 @@ class _TopPageState extends State<TopPage> {
   void initState() {
     super.initState();
 //    _showNotification();
-    getProgresses().then((value) => print(value));
   }
 
   @override

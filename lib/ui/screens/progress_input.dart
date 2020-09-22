@@ -74,7 +74,6 @@ class _ProgressInputState extends State<ProgressInput> {
               color: Colors.blue,
               textColor: Colors.white,
               onPressed: () async {
-                print(todo.id);
                 Progress progress =
                     Progress(todo.id, selectedProgress, DateTime.now());
                 await insertProgress(progress);

@@ -26,6 +26,14 @@ class ProgressProvider {
     return null;
   }
 
+  Future<List<Progress>> getByTodoId(int todoId) async {
+    var db = await dbHelper.getDb();
+    List<Map> maps = await db
+        .query(tableProgress, where: '$columnTodoId = ?', whereArgs: [todoId]);
+
+    return maps.map((map) => Progress.fromMap(map)).toList();
+  }
+
   Future<List<Progress>> getAll() async {
     var db = await dbHelper.getDb();
     List<Map> maps = await db.query(tableProgress);
