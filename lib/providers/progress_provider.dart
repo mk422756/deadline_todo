@@ -1,5 +1,4 @@
 import 'package:deadline_todo/models/progress.dart';
-import 'package:deadline_todo/models/todo.dart';
 import 'package:deadline_todo/utils/db_helper.dart';
 
 class ProgressProvider {

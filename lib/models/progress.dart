@@ -8,7 +8,7 @@ class Progress {
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      'todoId': todoId,
+      'todo_id': todoId,
       'progress': progress,
       'date': DateFormat('yyyy-MM-dd').format(date),
     };
@@ -23,7 +23,7 @@ class Progress {
 
   Progress.fromMap(Map<String, dynamic> map) {
     id = map["id"];
-    todoId = map["todoId"];
+    todoId = map["todo_id"];
     progress = map["progress"];
     date = DateTime.parse(map["date"]);
   }

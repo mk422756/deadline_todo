@@ -1,5 +1,8 @@
+import 'package:deadline_todo/models/progress.dart';
 import 'package:deadline_todo/models/todo.dart';
+import 'package:deadline_todo/providers/progress_provider.dart';
 import 'package:deadline_todo/providers/todo_provider.dart';
+import 'package:deadline_todo/ui/screens/todo_detail.dart';
 import 'package:deadline_todo/ui/screens/update_todo.dart';
 import 'package:flutter/material.dart';
 
@@ -11,9 +14,10 @@ class ProgressInput extends StatefulWidget {
 
 class _ProgressInputState extends State<ProgressInput> {
   int selectedProgress = 1;
-  Future<int> deleteTodo(Todo todo) {
-    TodoProvider provider = TodoProvider();
-    return provider.delete(todo.id);
+
+  Future<Progress> insertProgress(Progress progress) {
+    ProgressProvider provider = ProgressProvider();
+    return provider.insert(progress);
   }
 
   @override
@@ -70,12 +74,12 @@ class _ProgressInputState extends State<ProgressInput> {
               color: Colors.blue,
               textColor: Colors.white,
               onPressed: () async {
-                var retTodo = await Navigator.pushNamed(
-                    context, UpdateTodo.route,
+                print(todo.id);
+                Progress progress =
+                    Progress(todo.id, selectedProgress, DateTime.now());
+                await insertProgress(progress);
+                await Navigator.popAndPushNamed(context, TodoDetail.route,
                     arguments: todo);
-                setState(() {
-                  todo = retTodo;
-                });
               },
             ),
           ],
