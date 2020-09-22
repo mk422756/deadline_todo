@@ -18,8 +18,8 @@ class DBHelper {
     CREATE TABLE progresses (
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
       todo_id INTEGER,
-      date, TEXT,
-      progress, INTEGER,
+      date TEXT,
+      progress INTEGER,
     FOREIGN KEY(todo_id) references todos(id)
     FOREIGN KEY(progress) references progress_levels(id)
     UNIQUE(todo_id, date));

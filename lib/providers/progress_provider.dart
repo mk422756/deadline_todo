@@ -1,5 +1,6 @@
 import 'package:deadline_todo/models/progress.dart';
 import 'package:deadline_todo/utils/db_helper.dart';
+import 'package:intl/intl.dart';
 
 class ProgressProvider {
   DBHelper dbHelper = DBHelper();
@@ -20,6 +21,18 @@ class ProgressProvider {
     var db = await dbHelper.getDb();
     List<Map> maps =
         await db.query(tableProgress, where: '$columnId = ?', whereArgs: [id]);
+    if (maps.length > 0) {
+      return Progress.fromMap(maps.first);
+    }
+    return null;
+  }
+
+  Future<Progress> getByTodoIdAndDate(int todoId, DateTime dateTime) async {
+    var db = await dbHelper.getDb();
+    List<Map> maps = await db.query(tableProgress,
+        where: '$columnTodoId = ? AND date($columnDate) = ?',
+        whereArgs: [todoId, DateFormat('yyyy-MM-dd').format(dateTime)]);
+
     if (maps.length > 0) {
       return Progress.fromMap(maps.first);
     }

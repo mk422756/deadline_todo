@@ -23,9 +23,29 @@ class _TodoDetailState extends State<TodoDetail> {
     return provider.getByTodoId(todoId);
   }
 
+  Future<bool> isExistTodayProgress(int todoId) async {
+    ProgressProvider provider = ProgressProvider();
+    var progress = await provider.getByTodoIdAndDate(todoId, DateTime.now());
+    return progress == null ? false : true;
+  }
+
+  bool hasTodayProgress = true;
+
+  @override
+  void didChangeDependencies() {
+    Todo todo = ModalRoute.of(context).settings.arguments;
+    isExistTodayProgress(todo.id).then((value) {
+      setState(() {
+        hasTodayProgress = value;
+      });
+    });
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     Todo todo = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -35,18 +55,19 @@ class _TodoDetailState extends State<TodoDetail> {
             Text(todo.start.toString() + ' から'),
             Text(todo.end.toString() + ' までに'),
             Text(todo.title),
-            RaisedButton(
-              child: Text("進捗追加"),
-              color: Colors.green,
-              textColor: Colors.white,
-              onPressed: () async {
-                await Navigator.pushNamed(
-                  context,
-                  ProgressInput.route,
-                  arguments: todo,
-                );
-              },
-            ),
+            if (!hasTodayProgress)
+              RaisedButton(
+                child: Text("進捗追加"),
+                color: Colors.green,
+                textColor: Colors.white,
+                onPressed: () async {
+                  await Navigator.pushNamed(
+                    context,
+                    ProgressInput.route,
+                    arguments: todo,
+                  );
+                },
+              ),
             RaisedButton(
               child: Text("更新"),
               color: Colors.blue,
