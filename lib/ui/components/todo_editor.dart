@@ -1,5 +1,6 @@
 import 'package:deadline_todo/models/todo.dart';
 import 'package:deadline_todo/providers/todo_provider.dart';
+import 'package:deadline_todo/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -96,7 +97,7 @@ class _TodoEditorState extends State<TodoEditor> {
           color: Colors.blue,
           textColor: Colors.white,
           onPressed: () async {
-            TodoProvider provider = TodoProvider();
+            TodoProvider provider = TodoProvider(DBHelper());
 
             Todo todo;
             if (widget.todo == null) {

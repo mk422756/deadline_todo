@@ -1,9 +1,8 @@
 import 'package:deadline_todo/models/progress.dart';
 import 'package:deadline_todo/models/todo.dart';
 import 'package:deadline_todo/providers/progress_provider.dart';
-import 'package:deadline_todo/providers/todo_provider.dart';
 import 'package:deadline_todo/ui/screens/todo_detail.dart';
-import 'package:deadline_todo/ui/screens/update_todo.dart';
+import 'package:deadline_todo/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 
 class ProgressInput extends StatefulWidget {
@@ -16,7 +15,7 @@ class _ProgressInputState extends State<ProgressInput> {
   int selectedProgress = 1;
 
   Future<Progress> insertProgress(Progress progress) {
-    ProgressProvider provider = ProgressProvider();
+    ProgressProvider provider = ProgressProvider(DBHelper());
     return provider.insert(progress);
   }
 

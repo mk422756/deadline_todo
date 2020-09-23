@@ -4,6 +4,7 @@ import 'package:deadline_todo/providers/progress_provider.dart';
 import 'package:deadline_todo/providers/todo_provider.dart';
 import 'package:deadline_todo/ui/screens/progress_input.dart';
 import 'package:deadline_todo/ui/screens/update_todo.dart';
+import 'package:deadline_todo/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 
 class TodoDetail extends StatefulWidget {
@@ -14,17 +15,17 @@ class TodoDetail extends StatefulWidget {
 
 class _TodoDetailState extends State<TodoDetail> {
   Future<int> deleteTodo(Todo todo) {
-    TodoProvider provider = TodoProvider();
+    TodoProvider provider = TodoProvider(DBHelper());
     return provider.delete(todo.id);
   }
 
   Future<List<Progress>> getProgresses(int todoId) {
-    ProgressProvider provider = ProgressProvider();
+    ProgressProvider provider = ProgressProvider(DBHelper());
     return provider.getByTodoId(todoId);
   }
 
   Future<bool> isExistTodayProgress(int todoId) async {
-    ProgressProvider provider = ProgressProvider();
+    ProgressProvider provider = ProgressProvider(DBHelper());
     var progress = await provider.getByTodoIdAndDate(todoId, DateTime.now());
     return progress == null ? false : true;
   }

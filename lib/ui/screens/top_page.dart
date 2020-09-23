@@ -3,6 +3,7 @@ import 'package:deadline_todo/models/todo.dart';
 import 'package:deadline_todo/providers/progress_provider.dart';
 import 'package:deadline_todo/providers/todo_provider.dart';
 import 'package:deadline_todo/ui/screens/todo_detail.dart';
+import 'package:deadline_todo/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -19,12 +20,12 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 class _TopPageState extends State<TopPage> {
   Future<List<Todo>> getTodos() {
-    TodoProvider provider = TodoProvider();
+    TodoProvider provider = TodoProvider(DBHelper());
     return provider.getAll();
   }
 
   Future<List<Progress>> getProgresses() {
-    ProgressProvider provider = ProgressProvider();
+    ProgressProvider provider = ProgressProvider(DBHelper());
     return provider.getAll();
   }
 

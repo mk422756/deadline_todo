@@ -1,16 +1,17 @@
 import 'package:deadline_todo/models/progress.dart';
 import 'package:deadline_todo/utils/db_helper.dart';
-import 'package:deadline_todo/utils/db_helper_mock.dart';
 import 'package:intl/intl.dart';
 
 class ProgressProvider {
-  DBHelper dbHelper = DBHelperMock();
+  final DBHelper dbHelper;
 
   static final tableProgress = "progresses";
   static final columnId = "id";
   static final columnTodoId = "todo_id";
   static final columnProgress = "progress";
   static final columnDate = "date";
+
+  ProgressProvider(this.dbHelper);
 
   Future<Progress> insert(Progress progress) async {
     var db = await dbHelper.getDb();

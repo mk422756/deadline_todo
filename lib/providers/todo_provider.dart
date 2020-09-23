@@ -1,15 +1,16 @@
 import 'package:deadline_todo/models/todo.dart';
 import 'package:deadline_todo/utils/db_helper.dart';
-import 'package:deadline_todo/utils/db_helper_mock.dart';
 
 class TodoProvider {
-  DBHelper dbHelper = DBHelperMock();
+  final DBHelper dbHelper;
 
   static final tableTodo = "todos";
   static final columnId = "id";
   static final columnStart = "start";
   static final columnEnd = "end";
   static final columnTitle = "title";
+
+  TodoProvider(this.dbHelper);
 
   Future<Todo> insert(Todo todo) async {
     var db = await dbHelper.getDb();
