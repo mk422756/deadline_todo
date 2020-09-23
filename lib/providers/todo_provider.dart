@@ -1,8 +1,9 @@
 import 'package:deadline_todo/models/todo.dart';
 import 'package:deadline_todo/utils/db_helper.dart';
+import 'package:deadline_todo/utils/db_helper_mock.dart';
 
 class TodoProvider {
-  DBHelper dbHelper = DBHelper();
+  DBHelper dbHelper = DBHelperMock();
 
   static final tableTodo = "todos";
   static final columnId = "id";
@@ -29,6 +30,13 @@ class TodoProvider {
   Future<List<Todo>> getAll() async {
     var db = await dbHelper.getDb();
     List<Map> maps = await db.query(tableTodo);
+
+    return maps.map((map) => Todo.fromMap(map)).toList();
+  }
+
+  Future<List<Todo>> getByNotHasTodayProgress() async {
+    var db = await dbHelper.getDb();
+    List<Map> maps = await db.rawQuery('SELECT * FROM $tableTodo');
 
     return maps.map((map) => Todo.fromMap(map)).toList();
   }

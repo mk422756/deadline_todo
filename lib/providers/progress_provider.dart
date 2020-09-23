@@ -1,9 +1,10 @@
 import 'package:deadline_todo/models/progress.dart';
 import 'package:deadline_todo/utils/db_helper.dart';
+import 'package:deadline_todo/utils/db_helper_mock.dart';
 import 'package:intl/intl.dart';
 
 class ProgressProvider {
-  DBHelper dbHelper = DBHelper();
+  DBHelper dbHelper = DBHelperMock();
 
   static final tableProgress = "progresses";
   static final columnId = "id";

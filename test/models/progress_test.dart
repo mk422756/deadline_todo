@@ -5,7 +5,7 @@ void main() {
   test('Progressクラスが適切に動作する', () {
     var map = {
       "id": 1,
-      "todoId": 1,
+      "todo_id": 1,
       "progress": 1,
       "date": "2020-12-15",
     };

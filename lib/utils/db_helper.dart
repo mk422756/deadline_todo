@@ -6,7 +6,12 @@ class DBHelper {
   }
 
   Future<void> _onCreate(Database db, int version) async {
-    await db.execute('''
+    await initDB(db);
+  }
+}
+
+initDB(Database db) async {
+  await db.execute('''
     CREATE TABLE todos (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       start TEXT,
@@ -14,7 +19,7 @@ class DBHelper {
       title TEXT);
     ''');
 
-    await db.execute('''
+  await db.execute('''
     CREATE TABLE progresses (
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
       todo_id INTEGER,
@@ -25,19 +30,18 @@ class DBHelper {
     UNIQUE(todo_id, date));
     ''');
 
-    await db.execute('''
+  await db.execute('''
     CREATE TABLE progress_levels (
       id INTEGER PRIMARY KEY, 
       level TEXT);
     ''');
 
-    await db.execute(
-        'INSERT INTO progress_levels(id, level) VALUES (1, "very good");');
-    await db
-        .execute('INSERT INTO progress_levels(id, level) VALUES (2, "good");');
-    await db
-        .execute('INSERT INTO progress_levels(id, level) VALUES (3, "so-so");');
-    await db.execute(
-        'INSERT INTO progress_levels(id, level) VALUES (4, "not good");');
-  }
+  await db.execute(
+      'INSERT INTO progress_levels(id, level) VALUES (1, "very good");');
+  await db
+      .execute('INSERT INTO progress_levels(id, level) VALUES (2, "good");');
+  await db
+      .execute('INSERT INTO progress_levels(id, level) VALUES (3, "so-so");');
+  await db.execute(
+      'INSERT INTO progress_levels(id, level) VALUES (4, "not good");');
 }
