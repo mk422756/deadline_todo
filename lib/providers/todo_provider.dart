@@ -1,5 +1,7 @@
 import 'package:deadline_todo/models/todo.dart';
+import 'package:deadline_todo/providers/progress_provider.dart';
 import 'package:deadline_todo/utils/db_helper.dart';
+import 'package:intl/intl.dart';
 
 class TodoProvider {
   final DBHelper dbHelper;
@@ -37,9 +39,20 @@ class TodoProvider {
 
   Future<List<Todo>> getByNotHasTodayProgress() async {
     var db = await dbHelper.getDb();
-    List<Map> maps = await db.rawQuery('SELECT * FROM $tableTodo');
+    List<Map> progresses = await db.query(ProgressProvider.tableProgress,
+        where: '${ProgressProvider.columnDate} = ?',
+        whereArgs: [DateFormat('yyyy-MM-dd').format(DateTime.now())]);
 
-    return maps.map((map) => Todo.fromMap(map)).toList();
+    // 今日の進捗を持っているTODOのID
+    List todoIds = progresses.map((e) => e['todo_id']).toList();
+
+    List<Todo> allTodos = await getAll();
+
+    return allTodos.where((todo) {
+      return todoIds.where((id) {
+        return id == todo.id;
+      }).isEmpty;
+    }).toList();
   }
 
   Future<int> delete(int id) async {

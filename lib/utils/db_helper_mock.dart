@@ -18,8 +18,5 @@ class DBHelperMock implements DBHelper {
 
   Future<void> _onCreate(Database db, int version) async {
     await initDB(db);
-
-    await db.execute(
-        'INSERT INTO todos(start, end, title) VALUES (date("2020-01-01"),date("2020-12-01"), "test title");');
   }
 }
