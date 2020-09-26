@@ -32,7 +32,7 @@ class Todo {
     return 'id $id, title $title, start ${DateFormat('yyyy-MM-dd').format(start)}, end ${DateFormat('yyyy-MM-dd').format(end)}';
   }
 
-  bool isFinish() {
+  bool isFinished() {
     return this.end.isBefore(DateTime.now());
   }
 }

@@ -56,7 +56,7 @@ class _TodoDetailState extends State<TodoDetail> {
             Text(todo.start.toString() + ' から'),
             Text(todo.end.toString() + ' までに'),
             Text(todo.title),
-            if (!hasTodayProgress)
+            if (!hasTodayProgress && !todo.isFinished())
               RaisedButton(
                 child: Text("進捗追加"),
                 color: Colors.green,

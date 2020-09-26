@@ -48,7 +48,7 @@ class _TopPageState extends State<TopPage> {
     TodoProvider provider = TodoProvider(DBHelper());
     provider.getByNotHasTodayProgress().then((todos) {
       notHaveTodayProgressTodo =
-          todos.where((todo) => !todo.isFinish()).toList();
+          todos.where((todo) => !todo.isFinished()).toList();
       setState(() {});
     });
   }
