@@ -45,12 +45,29 @@ class _TopPageState extends State<TopPage> {
   void initState() {
     super.initState();
 //    _showNotification();
+    TodoProvider provider = TodoProvider(DBHelper());
+    provider.getByNotHasTodayProgress().then((todos) {
+      notHaveTodayProgressTodo =
+          todos.where((todo) => !todo.isFinish()).toList();
+      setState(() {});
+    });
   }
+
+  List<Todo> notHaveTodayProgressTodo = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () async {
+                await Navigator.pushNamed(context, CreateTodo.route);
+                setState(() {});
+              }),
+        ],
+      ),
       body: FutureBuilder(
         future: getTodos(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -75,13 +92,15 @@ class _TopPageState extends State<TopPage> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () async {
-          await Navigator.pushNamed(context, CreateTodo.route);
-          setState(() {});
-        },
-      ),
+      floatingActionButton: notHaveTodayProgressTodo.length > 0
+          ? FloatingActionButton.extended(
+              onPressed: () {
+                // TODO
+              },
+              label: Text(
+                '進捗追加',
+              ))
+          : null,
     );
   }
 }

@@ -27,4 +27,12 @@ class Todo {
     start = DateTime.parse(map["start"]);
     end = DateTime.parse(map["end"]);
   }
+
+  String toString() {
+    return 'id $id, title $title, start ${DateFormat('yyyy-MM-dd').format(start)}, end ${DateFormat('yyyy-MM-dd').format(end)}';
+  }
+
+  bool isFinish() {
+    return this.end.isBefore(DateTime.now());
+  }
 }
